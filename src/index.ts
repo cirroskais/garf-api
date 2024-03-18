@@ -5,7 +5,7 @@ Bun.serve({
     async fetch(req) {
         const url = new URL(req.url);
         if (url.pathname === "/") return new Response("hello yes this is garf");
-        if (url.pathname === "/api/token") return await token(req);
+        if (url.pathname === "/token") return await token(req);
         return new Response("garf dont know what want...");
     },
 });
