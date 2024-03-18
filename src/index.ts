@@ -9,3 +9,5 @@ Bun.serve({
         return new Response("garf dont know what want...");
     },
 });
+
+console.log("Listening on 0.0.0.0:3000");

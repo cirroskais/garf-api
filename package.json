@@ -1,11 +1,14 @@
 {
-  "name": "garf-api",
-  "module": "src/index.ts",
-  "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  }
+    "name": "garf-api",
+    "module": "src/index.ts",
+    "type": "module",
+    "scripts": {
+        "build": "bun build . --compile --outfile=build/garf-api"
+    },
+    "devDependencies": {
+        "@types/bun": "latest"
+    },
+    "peerDependencies": {
+        "typescript": "^5.0.0"
+    }
 }
