@@ -31,5 +31,9 @@ export default async function (req: Request): Promise<Response> {
 
     const { access_token } = (await response.json()) as TokenResponse;
 
-    return new Response(access_token);
+    return new Response(JSON.stringify({ access_token }), {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
 }
