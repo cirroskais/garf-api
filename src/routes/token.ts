@@ -11,7 +11,7 @@ interface TokenResponse {
 }
 
 export default async function (req: Request): Promise<Response> {
-    if (req.method !== "post") return new Response("garf expected a POST request...");
+    if (req.method !== "POST") return new Response("garf expected a POST request...");
     if (!req.headers.get("Content-Type")) return new Response("garf expected some jay sawn...");
     if (!req.headers.get("Content-Type")?.includes("application/json")) return new Response("garf expected some jay sawn...");
 
