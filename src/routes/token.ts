@@ -1,3 +1,5 @@
+import { encrypt } from "../lib/encryption";
+
 interface TokenRequest {
     code: string;
 }
@@ -8,6 +10,12 @@ interface TokenResponse {
     expires_in: number;
     refresh_token: string;
     scope: string;
+}
+
+export interface PartialDiscordUser {
+    id: string;
+    username: string;
+    avatar: string;
 }
 
 export default async function (req: Request): Promise<Response> {
@@ -30,13 +38,14 @@ export default async function (req: Request): Promise<Response> {
     });
 
     const { access_token } = (await response.json()) as TokenResponse;
+
     const userResponse = await fetch("https://discord.com/api/v10/users/@me", {
         headers: { Authorization: "Bearer " + access_token },
     });
+    const user = (await userResponse.json()) as PartialDiscordUser;
+    const { encrypted, iv } = await encrypt(JSON.stringify(user));
 
-    console.log(await userResponse.json());
-
-    return new Response(JSON.stringify({ access_token }), {
+    return new Response(JSON.stringify({ access_token, identity: { id: encrypted, iv } }), {
         headers: {
             "Content-Type": "application/json",
         },
