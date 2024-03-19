@@ -8,14 +8,14 @@ interface NegotiateRequest {
 }
 
 export default async function (req: Request, server: Server): Promise<void | Response> {
-    if (req.method !== "POST") return new Response("garf expected a POST request...");
-    if (!req.headers.get("Content-Type")) return new Response("garf expected some jay sawn...");
-    if (!req.headers.get("Content-Type")?.includes("application/json")) return new Response("garf expected some jay sawn...");
+    if (req.method !== "GET") return new Response("garf expected a GET request...");
+    const url = new URL(req.url);
 
-    const body = (await req.json()) as NegotiateRequest;
-    if (!body) return new Response("garf expected some jay sawn...");
+    const id = url.searchParams.get("id");
+    const iv = url.searchParams.get("iv");
+    if (!id || !iv) return new Response("broken id and iv!!!");
 
-    const decrypted = await decrypt(body.id, body.iv);
+    const decrypted = await decrypt(id, iv);
     if (!decrypted) return new Response("invalid identity!!!!!");
     const identity = JSON.parse(decrypted.decrypted) as PartialDiscordUser;
 
