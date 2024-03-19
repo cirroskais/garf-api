@@ -6,7 +6,8 @@
         "build": "bun build . --compile --outfile=build/garf-api"
     },
     "devDependencies": {
-        "@types/bun": "latest"
+        "@types/bun": "latest",
+        "@types/node": "^20.11.29"
     },
     "peerDependencies": {
         "typescript": "^5.0.0"

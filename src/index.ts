@@ -1,5 +1,6 @@
 import token from "./routes/token";
 import config from "./routes/config";
+import negotiate from "./routes/negotiate";
 
 Bun.serve({
     port: 3000,
@@ -10,7 +11,14 @@ Bun.serve({
 
         if (url.pathname === "/") return await config(req);
         if (url.pathname === "/token") return await token(req);
+        if (url.pathname === "/negotiate") return await negotiate(req);
         return new Response("garf dont know what want...");
+    },
+    websocket: {
+        message(ws, message) {},
+        open(ws) {},
+        close(ws, code, message) {},
+        drain(ws) {},
     },
 });
 

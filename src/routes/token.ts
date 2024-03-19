@@ -30,6 +30,11 @@ export default async function (req: Request): Promise<Response> {
     });
 
     const { access_token } = (await response.json()) as TokenResponse;
+    const userResponse = await fetch("https://discord/api/v10/user/@me", {
+        headers: { Authorization: "Bearer " + access_token },
+    });
+
+    console.log(await userResponse.json());
 
     return new Response(JSON.stringify({ access_token }), {
         headers: {
